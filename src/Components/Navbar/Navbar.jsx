@@ -6,8 +6,10 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/"
-          className={({ isActive}) =>
-              isActive ? "text-red-500" : ""
+          className={({ isActive }) =>
+            isActive
+              ? " focus:bg-transparent focus:text-sky-500 bg-sky-500 text-white"
+              : "hover:bg-transparent hover:text-white"
           }
         >
           Home
@@ -15,16 +17,47 @@ const Navbar = () => {
       </li>
       <li>
         {" "}
-        <NavLink to="about">About Us</NavLink>
+        <NavLink
+          to="service"
+          className={({ isActive }) =>
+            isActive
+              ? " focus:bg-transparent focus:text-sky-500 bg-sky-500 text-white"
+              : "hover:bg-transparent hover:text-white"
+          }
+        >
+          Services
+        </NavLink>
       </li>
       <li>
-        <NavLink to="contact-us">Contact us</NavLink>
+        {" "}
+        <NavLink
+          to="about"
+          className={({ isActive }) =>
+            isActive
+              ? " focus:bg-transparent target:text-white focus:text-sky-500 bg-sky-500 text-white"
+              : "hover:bg-transparent hover:text-white"
+          }
+        >
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="contact-us"
+          className={({ isActive }) =>
+            isActive
+              ? " focus:bg-transparent focus:text-sky-500 bg-sky-500 text-white"
+              : "hover:bg-transparent hover:text-white"
+          }
+        >
+          Contact us
+        </NavLink>
       </li>
     </>
   );
   return (
-    <div className="md:w-[80%] md:mx-auto">
-      <div className="navbar p-4">
+    <div className="mx-auto md:w-[80%]">
+      <div className="navbar p-4 fixed top-0 z-20 md:w-[80%] mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -45,7 +78,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {links}
             </ul>
@@ -54,7 +87,7 @@ const Navbar = () => {
             <p className="md:text-3xl text-sky-400 font-bold">ShineHome</p>
           </Link>
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-end hidden text-white  lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
       </div>

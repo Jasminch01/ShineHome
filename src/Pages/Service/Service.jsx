@@ -1,12 +1,12 @@
 import Banner from "../../Components/Banner/Banner";
 
-const ContactUs = () => {
+const Service = () => {
     return (
         <div>
             <Banner></Banner>
-            Contact us
+            Our services
         </div>
     );
 };
 
-export default ContactUs;
+export default Service;
