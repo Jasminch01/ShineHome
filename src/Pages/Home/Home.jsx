@@ -1,11 +1,12 @@
-import Banner from "../../Components/Banner/Banner";
+import Form from "../../Components/Form/Form";
 
 const Home = () => {
-    return (
-        <div>
-            <Banner></Banner>
-        </div>
-    );
+  return (
+    <div>
+      <p>Home</p>
+      <Form></Form>
+    </div>
+  );
 };
 
 export default Home;
