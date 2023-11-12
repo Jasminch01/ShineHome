@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-// import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { HashLink, } from "react-router-hash-link";
-import { HiMenu} from 'react-icons/hi';
+import { HashLink } from "react-router-hash-link";
+import { HiMenu } from "react-icons/hi";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -24,42 +23,22 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <HashLink
-          activeClassName="selected"
-          activeStyle={{ color: "red" }}
-          smooth
-          to="/#"
-        >
+        <HashLink smooth to="/#">
           Home
         </HashLink>
       </li>
       <li>
-        <HashLink
-          activeClassName="selected"
-          activeStyle={{ color: "red" }}
-          smooth
-          to="/#service"
-        >
+        <HashLink smooth to="/#service">
           Services
         </HashLink>
       </li>
       <li>
-        <HashLink
-          activeClassName="selected"
-          activeStyle={{ color: "red" }}
-          smooth
-          to="/#about"
-        >
+        <HashLink smooth to="/#about">
           About Us
         </HashLink>
       </li>
       <li>
-        <HashLink
-          activeClassName="selected"
-          activeStyle={{ color: "red" }}
-          smooth
-          to="/#contact"
-        >
+        <HashLink smooth to="/#contact">
           Contact us
         </HashLink>
       </li>
@@ -74,11 +53,15 @@ const Navbar = () => {
       }
     >
       <div className="lg:mx-auto md:w-[80%]">
-        <div className={"navbar lg:p-4 fixed top-0 z-20 md:w-[80%] mx-auto"}>
+        <div className={"navbar lg:py-4 fixed top-0 z-20 md:w-[80%] mx-auto"}>
           <div className="navbar-start">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                <HiMenu className={scrolling ? 'text-xl text-black' : 'text-xl text-white'}></HiMenu>
+                <HiMenu
+                  className={
+                    scrolling ? "text-xl text-black" : "text-xl text-white"
+                  }
+                ></HiMenu>
               </label>
               <ul
                 tabIndex={0}

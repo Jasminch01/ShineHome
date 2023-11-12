@@ -7,7 +7,7 @@ const Layout = () => {
     <div>
       <Navbar></Navbar>
       <Banner></Banner>
-      <div className="w-[80%] mx-auto">
+      <div className="max-w-7xl px-5 mx-auto">
         <Outlet></Outlet>
       </div>
     </div>

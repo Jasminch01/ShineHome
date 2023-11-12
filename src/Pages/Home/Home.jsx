@@ -1,5 +1,7 @@
+
 import About from "../../Components/About/About";
-// import Form from "../../Components/Form/Form";
+import Form from "../../Components/Form/Form";
+
 import Service from "../../Components/Service/Service";
 
 
@@ -112,6 +114,7 @@ const Home = () => {
         </div>
       </div>
       <About></About>
+      <Form></Form>
     </div>
   );
 };
