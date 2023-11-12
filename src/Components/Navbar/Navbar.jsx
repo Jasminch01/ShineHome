@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { HashLink, } from "react-router-hash-link";
+import { HiMenu} from 'react-icons/hi';
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -21,54 +24,44 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive
-              ? " focus:bg-transparent focus:text-sky-500 bg-sky-500 text-white"
-              : "hover:bg-transparent hover:text-white"
-          }
+        <HashLink
+          activeClassName="selected"
+          activeStyle={{ color: "red" }}
+          smooth
+          to="/#"
         >
           Home
-        </NavLink>
+        </HashLink>
       </li>
       <li>
-        {" "}
-        <NavLink
-          to="service"
-          className={({ isActive }) =>
-            isActive
-              ? " focus:bg-transparent focus:text-sky-500 bg-sky-500 text-white"
-              : "hover:bg-transparent hover:text-white"
-          }
+        <HashLink
+          activeClassName="selected"
+          activeStyle={{ color: "red" }}
+          smooth
+          to="/#service"
         >
           Services
-        </NavLink>
+        </HashLink>
       </li>
       <li>
-        {" "}
-        <NavLink
-          to="about"
-          className={({ isActive }) =>
-            isActive
-              ? " focus:bg-transparent target:text-white focus:text-sky-500 bg-sky-500 text-white"
-              : "hover:bg-transparent hover:text-white"
-          }
+        <HashLink
+          activeClassName="selected"
+          activeStyle={{ color: "red" }}
+          smooth
+          to="/#about"
         >
           About Us
-        </NavLink>
+        </HashLink>
       </li>
       <li>
-        <NavLink
-          to="contact-us"
-          className={({ isActive }) =>
-            isActive
-              ? " focus:bg-transparent focus:text-sky-500 bg-sky-500 text-white"
-              : "hover:bg-transparent hover:text-white"
-          }
+        <HashLink
+          activeClassName="selected"
+          activeStyle={{ color: "red" }}
+          smooth
+          to="/#contact"
         >
           Contact us
-        </NavLink>
+        </HashLink>
       </li>
     </>
   );
@@ -76,31 +69,16 @@ const Navbar = () => {
     <div
       className={
         scrolling
-          ? "navbar p-10 bg-white fixed top-0 z-20 w-full mx-auto"
-          : "p-10 fixed top-0 z-20 w-full mx-auto navbar transition duration-300 ease-in-out"
+          ? "navbar md:p-10 bg-white fixed top-0 z-20 w-full mx-auto"
+          : "md:p-10 fixed top-0 z-20 w-full mx-auto navbar transition duration-300 ease-in-out"
       }
     >
-      <div className="mx-auto md:w-[80%]">
-        <div
-          className={"navbar p-4 fixed top-0 z-20 md:w-[80%] mx-auto"}
-        >
+      <div className="lg:mx-auto md:w-[80%]">
+        <div className={"navbar lg:p-4 fixed top-0 z-20 md:w-[80%] mx-auto"}>
           <div className="navbar-start">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h8m-8 6h16"
-                  />
-                </svg>
+                <HiMenu className={scrolling ? 'text-xl text-black' : 'text-xl text-white'}></HiMenu>
               </label>
               <ul
                 tabIndex={0}
@@ -113,7 +91,11 @@ const Navbar = () => {
               <p className="md:text-3xl text-sky-400 font-bold">ShineHome</p>
             </Link>
           </div>
-          <div className={`navbar-end hidden lg:flex ${scrolling? `text-black`: ` text-white`}`} >
+          <div
+            className={`navbar-end hidden lg:flex ${
+              scrolling ? `text-black` : ` text-white`
+            }`}
+          >
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
         </div>

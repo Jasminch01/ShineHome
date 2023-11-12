@@ -1,7 +1,8 @@
 
 const ContactUs = () => {
     return (
-        <div>
+        <div id="contact">
+            
             
             Contact us
         </div>

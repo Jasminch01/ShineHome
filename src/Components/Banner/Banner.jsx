@@ -9,7 +9,7 @@ const Banner = () => {
               A Fresh Start <br />
               Your Home, Our Priority
             </h1>
-            <p className="md:text-lg md:w-[700px]">
+            <p className="md:text-lg lg:w-[700px]">
               Experience the epitome of cleanliness with ShineHome.
               Our professional home cleaning services redefine comfort, creating
               spaces of unmatched freshness and order. Entrust us with the
