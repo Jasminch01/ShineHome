@@ -1,48 +1,107 @@
-
+import axios from "axios";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Form = () => {
   const [services, setServices] = useState([]);
-  const [roomes, setRoomes] = useState([]);
+  const [roomes, setRooms] = useState([]);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
+//name validation
+  const validateName = () => {
+    if (!name) {
+      setNameError("Name is required");
+    } else {
+      setNameError("");
+    }
+  };
+
+//email validation
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) {
+      setEmailError("Email is required");
+    } else if (!emailRegex.test(email)) {
+      setEmailError("please provide a valid email address");
+    } else {
+      setEmailError("");
+    }
+  };
+//phone validation
+
+  const validatePhone = () => {
+    if (!phone) {
+      setPhoneError("Phone number is required");
+    } else {
+      setPhoneError("");
+    }
+  };
+
+  const isSubmitDisabled = !name || !email || !phone;
+
+//set class when show error message for stop breaking style
+  const getInputClasses = (error) => {
+    return error
+      ? "mb-4 w-full input input-bordered rounded-lg overflow-y-scroll "
+      : ` w-full input input-bordered rounded-lg overflow-y-scroll`;
+  };
+
+//loaded services form server api
   useEffect(() => {
-    fetch(`http://localhost:5000/services`)
-      .then((res) => res.json())
-      .then((data) => {
-        setServices(data);
+    axios
+      .get(`http://localhost:5000/services`)
+      .then((res) => setServices(res.data))
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
+//loded roomesdata form server api
   useEffect(() => {
-    fetch(`http://localhost:5000/bedrooms`)
-      .then((res) => res.json())
-      .then((data) => {
-        setRoomes(data);
+    axios
+      .get(`http://localhost:5000/bedrooms`)
+      .then((res) => setRooms(res.data))
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
+
+  //form submited
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
     const serviceRequried = form.serviceRequried.value;
-    const phoneNumber = form.phoneNumber.value;
     const bedroom = form.bedroom.value;
     const bathroom = form.bathroom.value;
     const postCode = form.postCode.value;
-    const submitInfo = {
+    const quoteInfo = {
       name,
       email,
-      phoneNumber,
+      phone,
       serviceRequried,
       bedroom,
       bathroom,
       postCode,
     };
-    console.log(submitInfo);
+    console.log(quoteInfo);
+
+    axios.post(`http://localhost:5000/quoteInfo`, quoteInfo).then((res) => {
+      if (res.data.insertedId) {
+        toast.success("Successfully submited request");
+      }
+    });
+    
     form.reset();
   };
+ 
   return (
     <div className="my-20">
       <form action="" onSubmit={handleSubmit}>
@@ -58,9 +117,12 @@ const Form = () => {
                 name="name"
                 type="text"
                 placeholder="Name"
+                onChange={(e) => setName(e.target.value)}
+                onBlur={validateName}
                 className="input rounded-lg input-bordered w-full"
                 required
               />
+              <span className="text-red-500 mt-2 text-xs">{nameError}</span>
             </div>
             <div className="form-control">
               <label className="label">
@@ -72,10 +134,13 @@ const Form = () => {
               <input
                 name="email"
                 type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                onBlur={validateEmail}
                 placeholder="email"
                 className=" input rounded-lg input-bordered w-full"
                 required
               />
+              <span className="text-red-500 mt-2 text-xs">{emailError}</span>
             </div>
             <div className="form-control">
               <label className="label">
@@ -87,10 +152,13 @@ const Form = () => {
               <input
                 name="phoneNumber"
                 type="text"
+                onChange={(e) => setPhone(e.target.value)}
+                onBlur={validatePhone}
                 placeholder="Phone Number"
                 className=" input rounded-lg input-bordered w-full"
                 required
               />
+              <span className="text-red-500 mt-2 text-xs">{phoneError}</span>
             </div>
           </div>
           <div className="">
@@ -103,14 +171,14 @@ const Form = () => {
               <select
                 name="serviceRequried"
                 id=""
-                className=" w-full input input-bordered rounded-lg overflow-y-scroll"
+                className={getInputClasses(!!nameError)}
               >
                 {services.map((service) => (
                   <option key={service._id}>{service.name}</option>
                 ))}
               </select>
             </div>
-            <div>
+            <div className="mt-2">
               <label className="label">
                 <span className="label-text font-semibold text-sky-500 flex justify-center items-center gap-1">
                   Bedroom
@@ -119,7 +187,7 @@ const Form = () => {
               <select
                 name="bedroom"
                 id=""
-                className=" w-full input input-bordered  rounded-lg"
+                className={getInputClasses(!!emailError)}
               >
                 {" "}
                 {roomes.map((room) => (
@@ -127,7 +195,7 @@ const Form = () => {
                 ))}
               </select>
             </div>
-            <div>
+            <div className="mt-2">
               <label className="label">
                 <span className="label-text font-semibold text-sky-500 ">
                   Bathroom
@@ -137,7 +205,7 @@ const Form = () => {
                 name="bathroom"
                 id=""
                 placeholder="select"
-                className=" w-full input input-bordered rounded-lg"
+                className={getInputClasses(!!phoneError)}
               >
                 {roomes.map((room) => (
                   <option key={room._id}>{room.value}</option>
@@ -163,11 +231,15 @@ const Form = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="p-3 mt-5 uppercase bg-blue-400 text-white rounded"
+            className={`p-3 mt-5 uppercase ${
+              isSubmitDisabled ? `bg-blue-700` : "bg-blue-500"
+            } bg-blue-400 text-white rounded`}
+            disabled={isSubmitDisabled}
           >
             Get an exact quote
           </button>
         </div>
+        <Toaster></Toaster>
       </form>
     </div>
   );
